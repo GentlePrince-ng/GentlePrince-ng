@@ -1,4 +1,4 @@
-# Solomon Oladimeji
+# Solomon Yemi Oladimeji
 
 **Monitoring, evaluation and research data systems for public health — built geography-first.**
 
