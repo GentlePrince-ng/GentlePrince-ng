@@ -20,53 +20,10 @@ systems I designed.
 
 ## The data estate I build and run
 
-```mermaid
-flowchart LR
-    subgraph SRC["Sources"]
-        direction TB
-        S1["KoboToolbox<br/>field surveys"]
-        S2["GA4 · Mailchimp<br/>YouTube · WordPress"]
-        S3["Slack<br/>mentions"]
-        S4["MSDAT · NBS<br/>NPHCDA facilities"]
-    end
-
-    subgraph ETL["Ingest and reconcile"]
-        direction TB
-        E1["Apps Script<br/><i>append-only, 15 min</i>"]
-        E2["Python ETL<br/><i>parquet, daily on CI</i>"]
-        E3["Puller and<br/>pre-processor"]
-    end
-
-    subgraph MODEL["Model"]
-        direction TB
-        W1["16-rule quality engine<br/><i>flags, never deletes</i>"]
-        W2["DuckDB<br/><i>article-level</i>"]
-        W3["Geographic spine<br/><i>state to LGA to facility</i>"]
-    end
-
-    subgraph OUT["Serve"]
-        direction TB
-        O1["Looker Studio<br/>Power BI"]
-        O2["Streamlit<br/>dashboards"]
-        O3["Public map<br/>explorer"]
-        O4["Daily brief<br/>email"]
-    end
-
-    S1 --> E1
-    S3 --> E1
-    S2 --> E2
-    S4 --> E3
-
-    E1 --> W1
-    E2 --> W2
-    E3 --> W3
-    E1 --> W3
-
-    W1 --> O1
-    W2 --> O2
-    W3 --> O3
-    E1 --> O4
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/1-data-estate.svg">
+  <img alt="Data estate: KoboToolbox, GA4, Slack and facility registries flow through Apps Script and Python ETL into a 16-rule quality engine, a DuckDB article-level table and a geographic spine, then out to dashboards, a public map explorer and a daily brief email." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/1-data-estate.svg" width="100%">
+</picture>
 
 The recurring problem is never extraction. It is that two sources disagree, a
 migration split one history in half, or a field team submitted something that
@@ -86,30 +43,10 @@ rumour or a service collapse between rounds. ICL restructured that into a
 quarterly listening cycle across three pillars — **PHC strengthening, community
 engagement, and infodemic management**.
 
-```mermaid
-flowchart TD
-    subgraph DES["Design — fixed before collection"]
-        D1["6 LGAs per state<br/>3 rural · 3 urban"]
-        D2["2 LGAs per<br/>senatorial district"]
-        D3["Cochran + design effect<br/>multi-stage cluster"]
-    end
-
-    subgraph INST["Instruments"]
-        I1["Household survey<br/><i>WHO PHC toolkit · SARA</i>"]
-        I2["FGDs<br/><i>youth · women · elderly</i>"]
-        I3["KIIs<br/><i>PHC OICs · state officials · WDC chairs</i>"]
-    end
-
-    D1 & D2 & D3 --> INST
-    I1 & I2 & I3 --> QA["Field QA<br/>spot checks · daily debriefs<br/>encrypted devices"]
-
-    QA --> AN["Analysis<br/>state and LGA level"]
-
-    AN --> U1["Health Intelligence<br/>Report editions"]
-    AN --> U2["Editorial and<br/>thought leadership"]
-    AN --> U3["Conference abstracts<br/><i>ICPHC, Addis Ababa</i>"]
-    AN --> U4["State-level PHC<br/>board engagement"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/2-icl-study-design.svg">
+  <img alt="ICL study design: six LGAs per state, three rural and three urban, two per senatorial district, sized with Cochran plus a design effect. That design constrains the household survey, FGDs and KIIs, which feed field QA, analysis at state and LGA level, and four outputs." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/2-icl-study-design.svg" width="100%">
+</picture>
 
 The sampling is the part I care most about. Six LGAs per state, deliberately
 **three rural and three urban and two per senatorial district** — so the design
@@ -141,18 +78,10 @@ signal that the real barrier hasn't been named yet.
 A public, map-based platform making PHC performance explorable by anyone —
 built on **Wazimap-NG**, with AI used narrowly and deliberately.
 
-```mermaid
-flowchart LR
-    A["NHW surveys<br/>MSDAT · NBS<br/>NPHCDA facilities<br/>geocoded news"] --> B["Puller and pre-processor<br/><i>align to standard geographies</i>"]
-    B --> C["Analytics layer<br/><i>Cube.dev indicator cubes</i>"]
-    C --> D["Wazimap API<br/>+ extended frontend"]
-    D --> E["Public explorer<br/><i>national to state to LGA to facility</i>"]
-
-    B -.->|"ingest-time<br/>annotation"| L["Managed LLM"]
-    L -.->|"draft narratives"| R{"Human review"}
-    R -->|"approved"| E
-    R -->|"rejected"| L
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/3-phc-data-explorer.svg">
+  <img alt="PHC Data Explorer: NHW surveys, MSDAT, NBS, facility registries and geocoded news are aligned to standard geographies, pre-computed as Cube.dev indicator cubes, and served through the Wazimap API to a public explorer. An optional managed-LLM branch is drawn dashed and must pass human review before anything reaches the public output." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/3-phc-data-explorer.svg" width="100%">
+</picture>
 
 **Geography is the backbone, not a filter.** Every indicator connects to a place,
 which is what lets the platform answer questions a table cannot: *this LGA's
@@ -184,22 +113,10 @@ output on a 15-minute trigger. Plus a parallel qualitative system that reached a
 **100% transcript upload rate (49/49) across 11 coders**, feeding a 14-section
 comparative report.
 
-```mermaid
-flowchart TD
-    K["KoboToolbox"] -->|append-only on _id| RAW["Landing table<br/><i>never rewritten</i>"]
-    RAW --> ENG{"16-rule engine"}
-
-    ENG --> R1["Eligibility<br/>consent · residence"]
-    ENG --> R2["Deployment<br/>state · LGA · name"]
-    ENG --> R3["Timing<br/>duration · hours · delay"]
-    ENG --> R4["Geospatial<br/>accuracy · dupes · missing"]
-
-    R1 & R2 & R3 & R4 --> DQ["Flagged rows<br/><i>nothing deleted</i>"]
-
-    DQ --> GATE{"Human sets<br/>Validation = Yes?"}
-    GATE -->|yes| CLEAN["Analysis-ready"]
-    GATE -->|"no or blank"| HELD["Held back<br/><i>still visible</i>"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/4-glide-quality-gate.svg">
+  <img alt="GLIDE quality gate: an append-only Kobo landing table feeds a 16-rule engine covering eligibility, deployment, timing and geospatial checks. Flagged rows reach a human validation gate with two equally weighted destinations: analysis-ready, and held back but still visible." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/4-glide-quality-gate.svg" width="100%">
+</picture>
 
 It **flags, it never deletes** — every rule is a heuristic that can be wrong, and
 a rule that silently drops rows produces a tidy dataset nobody can defend. Blank
@@ -214,20 +131,10 @@ known cross-boundary postings.
 GPS is the one field an enumerator cannot fabricate from a desk, which makes it
 the strongest integrity signal in the dataset.
 
-```mermaid
-flowchart LR
-    G["Kobo geopoint<br/>lat lon alt accuracy"] --> P["Defensive parse<br/><i>missing stays null</i>"]
-
-    P --> A{"accuracy<br/>over 20 m?"}
-    P --> M{"lat or lon<br/>null?"}
-    P --> S["Snap to grid<br/>4 dp ≈ 11 m"]
-
-    S --> C{"cell holds<br/>2 or more?"}
-
-    A -->|yes| F1["too coarse<br/>to place a household"]
-    M -->|yes| F2["no fix obtained"]
-    C -->|yes| F3["several forms,<br/>one location"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/5-geospatial-rules.svg">
+  <img alt="Geospatial rules: Kobo geopoints are defensively parsed so missing values stay null, then checked three ways — accuracy worse than 20 metres, missing coordinates, and, after snapping to a roughly 11 metre grid, more than one submission landing in the same cell." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/5-geospatial-rules.svg" width="100%">
+</picture>
 
 Coordinates snap to a **~11 m grid** (4 decimal places — 11.1 m of latitude
 anywhere, ~10.9 m of longitude at 10°N). Cells holding more than one submission
@@ -248,20 +155,10 @@ which is exactly why it's a flag, not a deletion.
 ### Editorial & Digital Comms Metrics Pipeline
 *Python ETL + Streamlit, replacing a 14-step Apps Script pipeline and its Looker reports*
 
-```mermaid
-flowchart LR
-    M["MFN export<br/><i>frozen, lifetime only</i>"]
-    G1["GA4 legacy property<br/><i>daily, Africa/Lagos</i>"]
-    G2["GA4 apex property<br/><i>daily, Los Angeles tz</i>"]
-
-    M -.->|"overlap: NEVER sum<br/>two tools, same traffic"| G1
-    G1 -->|"overlap: DO sum<br/>two sites, different traffic"| G2
-
-    G2 --> RB["Rebucket to<br/>Nigeria days"]
-    M & G1 & RB --> T["One article-level table"]
-
-    GAP["migration month<br/><b>unmeasured</b><br/><i>footnoted, not filled</i>"] -.-> T
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/6-ga4-three-era-reconciliation.svg">
+  <img alt="GA4 three-era reconciliation: the MFN and GA4 legacy overlap must never be summed, the GA4 legacy and apex overlap must be. Apex data is rebucketed to Nigeria days first. The unmeasured migration month is a dashed, deliberately empty box that feeds nothing." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/6-ga4-three-era-reconciliation.svg" width="100%">
+</picture>
 
 Pulls GA4, Mailchimp, YouTube, BeyondWords and the WordPress registry into
 parquet, builds a DuckDB warehouse, serves Streamlit. Runs daily on GitHub

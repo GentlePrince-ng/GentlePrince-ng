@@ -72,8 +72,31 @@ Type is Inter with a Helvetica and Arial fallback. When an SVG loads as an
 image the browser will not fetch a webfont, so **the fallback is what actually
 renders**. For true Inter, open the SVG in a tool where the font is installed.
 
-## Why the profile README still uses Mermaid
+## How the profile README embeds these
 
-Mermaid re-themes itself to whichever mode the reader is in, and it diffs
-cleanly in review. These files are for everywhere Mermaid does not reach —
-slide decks, a CV, LinkedIn, PDF, print.
+Each diagram is a `<picture>` element, so GitHub serves the dark SVG to
+dark-mode readers and the light one to everyone else:
+
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".../diagrams/dark/1-data-estate.svg">
+  <img alt="..." src=".../diagrams/1-data-estate.svg" width="100%">
+</picture>
+```
+
+Two things that are easy to get wrong here:
+
+- **Absolute `raw.githubusercontent.com` URLs, not relative paths.** This README
+  is rendered on the profile page as well as inside the repo, and relative image
+  paths are not reliably resolved in the profile context.
+- **The light SVG goes in `src`, the dark one in `<source>`.** `src` is the
+  fallback, so anything that ignores the media query — most feed readers, some
+  mirrors — gets the light version, which is the safer default on an unknown
+  background.
+
+Because the README now points at these files, **a diagram edit changes the
+profile page**. Regenerate `dark/` and `png/` before pushing, or light and dark
+readers will see different diagrams.
+
+The PNGs are not used by the README. They exist for everywhere the SVGs do not
+reach — slide decks, a CV, LinkedIn, PDF, print.
