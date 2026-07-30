@@ -40,6 +40,33 @@ bury a handful of stories behind thousands of activity rows.
 
 `Python` `Streamlit` `KoboToolbox API`
 
+### Field Survey Data Operations
+Two Apps Script pipelines running data operations for a mixed-methods health
+study across six LGAs in Cross River and Kaduna — a household survey plus a
+qualitative programme of focus groups and key informant interviews.
+
+The quantitative side pulls KoboToolbox into an append-only landing table, runs
+a **16-rule data-quality engine**, and gates everything behind explicit human
+review: blank is not approval, so the analysable dataset is opt-in. It flags,
+it never deletes — every rule is a heuristic that can be wrong, and a rule that
+silently drops rows produces a tidy dataset nobody can defend.
+
+Three of those rules are **geospatial**, because GPS is the one field an
+enumerator cannot fabricate from a desk. Coordinates are snapped to a ~11 m
+grid (4 decimal places) and grouped, which catches the fabrication pattern
+exact-match comparison always misses — sitting in one place filling several
+forms, where jitter makes every reading differ in the last decimals. Grid
+snapping has a known edge artifact, so it deliberately under-flags rather than
+over-flags: a true haversine radius search is O(n²) and would exceed Apps
+Script's execution limit, and under-flagging is the right direction for a
+screen a human then reviews.
+
+The qualitative side generates its denominator from the study protocol rather
+than counting submissions, so progress is always a fraction of a known total
+and every submission is audited as matched, duplicate, unmatched or invalid.
+
+`Apps Script` `KoboToolbox API` `geospatial QA` `Google Sheets/Drive/Forms` `Looker Studio`
+
 ### Impact Observatory
 Multi-user React app for tracking advocacy impact: an evidence funnel running
 from publication through to policy uptake, with AI-assisted classification behind
@@ -85,6 +112,13 @@ still the key.
 **Provenance over convenience.** Derived artefacts are rebuilt, not committed. A
 manifest records the source workbook name and its sha256, so where a number came
 from survives even when the source file doesn't live in the repo.
+
+**State the limitation next to the method.** Where a technique has a known
+failure mode — grid snapping missing pairs that straddle a cell boundary,
+mode-inference unable to catch an enumerator who worked the wrong LGA most of
+the time — that is documented beside it, along with why the trade was taken.
+A method whose weaknesses are written down can be reviewed; one presented as
+airtight cannot.
 
 **Document the why.** The READMEs in these projects explain the constraints and
 the decisions that fall out of them, not just how to run the thing. If a rule
