@@ -103,6 +103,53 @@ engineering team**.
 
 `Wazimap-NG` `Cube.dev` `managed LLM + RAG` `geocoding` `MSDAT` `NBS` `NPHCDA`
 
+### Exemplars in Malaria: Subnational Tailoring (SNT)
+*Co-Investigator / Qualitative Research Lead · Gates Foundation · Harvard T.H. Chan · NMEP*
+
+Nigeria moved malaria programming away from uniform national coverage toward
+**stratified, locally tailored intervention mixes**. This study asks whether that
+worked, and why — informing Global Fund resource allocation and WHO malaria
+strategy, and positioning Nigeria as a global exemplar.
+
+It is genuinely mixed-methods, and I work both arms.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/dark/7-snt-mixed-methods.svg">
+  <img alt="SNT mixed-methods design: a quantitative arm takes NMDR, NDHS, NMIS and DHIS2 data into a tidy indicator table, parses each value four ways, and renders 18 indicators across seven geographies in ggplot2. A qualitative arm codes 39 key informant transcripts in Dedoose against a structured codebook cross-tabulated by stakeholder category. Both converge on a triangulated finding." src="https://raw.githubusercontent.com/GentlePrince-ng/GentlePrince-ng/main/diagrams/7-snt-mixed-methods.svg" width="100%">
+</picture>
+
+**The R arm** — roughly 10,000 lines producing publication-grade figures for
+~18 malaria indicators across seven geographies at 600 dpi. Burden, prevention,
+case management, system performance and drug resistance, triangulated across
+NMDR, NDHS, NMIS and DHIS2 from 2015 to 2024.
+
+The load-bearing decision is how a value gets read. Source indicators arrive as
+mixed types in a single column — a prevalence figure may be a clean number, while
+a modelled estimate arrives as a **range string** like `"12-18"` carrying its
+uncertainty interval. A naive `as.numeric()` returns `NA` on that, and the figure
+still renders — just with a hole in it, which is the worst failure mode available.
+So every value is kept four ways: the original string untouched for audit, a
+stripped numeric, and both interval bounds parsed separately. Indicator labels
+also aren't stable across states, so column lookup is by regex with an `NA`
+fallback — a state missing one indicator drops that series rather than killing
+the batch run.
+
+**The Dedoose arm** — **39 key informant transcripts** coded against a structured
+codebook and cross-tabulated by stakeholder category: NMEP programme staff,
+technical support partners, SMEP managers, Directors of Public Health, and state
+partners. Analysis is organised around the three SNT domains — *generating*,
+*synthesising*, and *acting on* the evidence — and reported through code-frequency
+descriptor bubble plots, code counts by transcript, and packed code clouds.
+
+Cross-tabulating by stakeholder category is what makes it analysis rather than
+summary. It surfaces **where groups diverge**: programme staff cluster on
+coordination and trade-off validation, technical partners on methodological rigour
+and prioritisation, SMEP managers on delivery realities. Agreement on *whether*
+tailoring is right, disagreement on *who owns it* — a pattern you cannot see by
+reading transcripts one at a time.
+
+`R` `tidyverse` `ggplot2` `Dedoose` `thematic coding` `NHREC approval` `DHIS2` `NDHS/NMIS`
+
 ### GLIDE Onchocerciasis Baseline Study
 *Co-Investigator / Research Data Systems Lead · Kaduna & Cross River · 2026*
 
@@ -188,12 +235,16 @@ interpolating.
 
 ## Research
 
-**Co-Investigator**, *Exemplars in Malaria: Subnational Tailoring* — a Gates
-Foundation study with Harvard T.H. Chan School of Public Health and Nigeria's
-National Malaria Elimination Programme, positioning Nigeria as a global exemplar
-and informing Global Fund resource allocation. I designed the qualitative
-framework across six case-study states and ran geographic data triangulation
-across NMDR, NDHS, NMIS and DHIS2 (2015–2024).
+Beyond the SNT work above: I designed its qualitative framework across six
+case-study states and secured NHREC ethical approval. Across GLIDE, ICL and CBPS
+I've held protocol design, instrument development, ethics submission, field QA
+and analysis — roughly **15,000 respondents across eight states**.
+
+**Donor reporting.** I write the M&E and metrics reporting for a Gates Foundation
+Global Policy & Advocacy grant — biannual reports, metrics returns, progress
+narratives and impact reporting across two grant years, against the foundation's
+own template: outputs, project adjustments, financial variance, geography served,
+and global access.
 
 **Publications**
 - *Learning from Nigeria's Exemplary Progress in Malaria Subnational Tailoring* — Exemplars in Global Health (2026)

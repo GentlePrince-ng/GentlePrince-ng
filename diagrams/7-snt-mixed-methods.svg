@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t7 d7">
+  <title id="t7">SNT mixed-methods design: an R arm and a Dedoose arm converging</title>
+  <desc id="d7">
+    Two parallel analysis arms. The quantitative arm takes routine and survey
+    data into a tidy indicator table, parses each value four ways, and renders
+    eighteen indicators across seven geographies in ggplot2. The qualitative arm
+    codes thirty-nine key informant transcripts in Dedoose against a structured
+    codebook, cross-tabulated by stakeholder category. Both converge on a
+    triangulated finding.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
+      .lane          { fill: none; stroke: #CBD5E1; stroke-width: 2; }
+      .lane-label    { font-size: 15px; font-weight: 700; letter-spacing: 1px; }
+      .process       { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
+      .process-light { fill: #FFFFFF; stroke: #2E8B74; stroke-width: 2; }
+      .converge      { fill: #D98A2B; stroke: #D98A2B; stroke-width: 2; }
+      .arrow         { fill: none; stroke: #334155; stroke-width: 2.3;
+                       stroke-linecap: round; stroke-linejoin: round;
+                       marker-end: url(#arrowSlate); }
+      .node-label       { font-size: 17px; font-weight: 600; }
+      .node-label-small { font-size: 15px; font-weight: 600; }
+      .white-label      { fill: #FFFFFF; }
+      .note             { font-size: 14px; font-weight: 600; fill: #64748B; }
+      .cyl-body { fill: #F1F5F9; stroke: none; }
+      .cyl-edge { fill: none; stroke: #CBD5E1; stroke-width: 2; stroke-linecap: round; }
+      .cyl-top  { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 2; }
+    </style>
+
+    <marker id="arrowSlate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#334155"/>
+    </marker>
+
+    <!-- Body drawn without top/bottom stroke, then the front arc, then the full
+         top ellipse. A plain stroked rect would leave seam lines across both caps. -->
+    <g id="cyl7">
+      <rect class="cyl-body" x="0" y="0" width="220" height="90"/>
+      <path class="cyl-edge" d="M 0 0 L 0 90"/>
+      <path class="cyl-edge" d="M 220 0 L 220 90"/>
+      <path class="cyl-edge" d="M 0 90 A 110 18 0 0 0 220 90"/>
+      <ellipse class="cyl-top" cx="110" cy="0" rx="110" ry="18"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <!-- ============ QUANTITATIVE ARM ============ -->
+  <rect class="lane" x="40" y="70" width="1180" height="300" rx="20"/>
+  <text class="lane-label" x="75" y="105">QUANTITATIVE — R</text>
+
+  <g transform="translate(80,180)">
+    <use href="#cyl7"/>
+    <text class="node-label-small" text-anchor="middle" x="110" y="34">NMDR · NDHS</text>
+    <text class="node-label-small" text-anchor="middle" x="110" y="56">NMIS · DHIS2</text>
+    <text class="note" text-anchor="middle" x="110" y="78">2015–2024</text>
+  </g>
+
+  <rect class="process" x="380" y="170" width="320" height="120" rx="16"/>
+  <text class="node-label-small white-label" x="540" y="205" text-anchor="middle">
+    <tspan x="540" dy="0">Tidy long table</tspan>
+    <tspan x="540" dy="23">Region · Indicator · Value</tspan>
+    <tspan x="540" dy="23">four-way value parse</tspan>
+    <tspan x="540" dy="23">raw · numeric · min · max</tspan>
+  </text>
+
+  <rect class="process" x="780" y="170" width="380" height="120" rx="16"/>
+  <text class="node-label-small white-label" x="970" y="212" text-anchor="middle">
+    <tspan x="970" dy="0">ggplot2</tspan>
+    <tspan x="970" dy="23">18 indicators × 7 geographies</tspan>
+    <tspan x="970" dy="23">exported at 600 dpi</tspan>
+  </text>
+
+  <path class="arrow" d="M 300 225 L 380 228"/>
+  <path class="arrow" d="M 700 230 L 780 230"/>
+
+  <!-- ============ QUALITATIVE ARM ============ -->
+  <rect class="lane" x="40" y="470" width="1180" height="300" rx="20"/>
+  <text class="lane-label" x="75" y="505">QUALITATIVE — Dedoose</text>
+
+  <g transform="translate(80,580)">
+    <use href="#cyl7"/>
+    <text class="node-label-small" text-anchor="middle" x="110" y="40">39 key informant</text>
+    <text class="node-label-small" text-anchor="middle" x="110" y="62">transcripts</text>
+  </g>
+
+  <rect class="process" x="380" y="570" width="320" height="120" rx="16"/>
+  <text class="node-label-small white-label" x="540" y="605" text-anchor="middle">
+    <tspan x="540" dy="0">Structured codebook</tspan>
+    <tspan x="540" dy="23">cross-tabulated by</tspan>
+    <tspan x="540" dy="23">stakeholder category</tspan>
+    <tspan x="540" dy="23">5 groups</tspan>
+  </text>
+
+  <rect class="process" x="780" y="570" width="380" height="120" rx="16"/>
+  <text class="node-label-small white-label" x="970" y="612" text-anchor="middle">
+    <tspan x="970" dy="0">Code-frequency bubble plots</tspan>
+    <tspan x="970" dy="23">code counts by transcript</tspan>
+    <tspan x="970" dy="23">packed code clouds</tspan>
+  </text>
+
+  <path class="arrow" d="M 300 625 L 380 628"/>
+  <path class="arrow" d="M 700 630 L 780 630"/>
+
+  <!-- ============ CONVERGENCE ============ -->
+  <path class="arrow" d="M 1160 230 L 1230 230 L 1230 400 L 1280 400"/>
+  <path class="arrow" d="M 1160 630 L 1230 630 L 1230 500 L 1280 500"/>
+
+  <rect class="converge" x="1280" y="355" width="280" height="190" rx="18"/>
+  <text class="node-label white-label" x="1420" y="425" text-anchor="middle">
+    <tspan x="1420" dy="0">Triangulated</tspan>
+    <tspan x="1420" dy="26">finding</tspan>
+  </text>
+  <text class="node-label-small white-label" x="1420" y="490" text-anchor="middle">
+    <tspan x="1420" dy="0">what the numbers show,</tspan>
+    <tspan x="1420" dy="21">and why</tspan>
+  </text>
+
+  <!-- The point of the design, stated once. -->
+  <text class="note" x="800" y="830" text-anchor="middle">
+    Neither arm answers the question alone: the indicators show what changed, the transcripts show
+  </text>
+  <text class="note" x="800" y="852" text-anchor="middle">
+    which decisions changed it — and where stakeholders disagree about why.
+  </text>
+</svg>
