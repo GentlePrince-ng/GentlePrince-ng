@@ -233,7 +233,6 @@ interpolating.
 | **Impact Observatory** | React + Supabase app tracking advocacy impact from publication through to policy uptake, with AI classification behind an edge function so the model key never reaches the browser |
 | **Slack Social Listening** | Apps Script pipeline polling a mentions channel into Sheets, classified with Gemini structured output, emailing a daily intelligence brief — written around Slack's 15-object/minute cap rather than against it |
 | **GLIDE Programme Dashboards** | Streamlit over KoboToolbox for onchocerciasis community mobilisation across six advocacy hubs; two forms kept deliberately unmerged, having no common unit of analysis |
-| **SoJo AI · Health Lens Naija · NHW Events · SPCF · HIDIM** | Full-stack product and web work for health and journalism organisations |
 
 ---
 
@@ -296,5 +295,6 @@ I'm glad to walk through any of it in detail, or arrange read access on request.
 
 - GitHub — [@GentlePrince-ng](https://github.com/GentlePrince-ng)
 - LinkedIn — [in/solomonyemi](https://linkedin.com/in/solomonyemi)
+- CV - [Link](https://drive.google.com/file/d/18l8o-8BeFqA9DA9yQW6FydaoaKTKd_kS/view?usp=sharing)
 - Email — solomonyemi@gmail.com
 - Abuja, Nigeria
