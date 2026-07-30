@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t6 d6">
+  <title id="t6">Reconciling three measurement eras into one article-level table</title>
+  <desc id="d6">
+    Three analytics sources feed one article-level table. The MFN and GA4 legacy
+    overlap must never be summed; the GA4 legacy and GA4 apex overlap must be.
+    Apex data is rebucketed to Nigeria days first. The unmeasured migration month
+    is shown as a deliberately empty, dashed box that feeds nothing.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #C9D1D9; }
+      .source      { fill: #161B22; stroke: #30363D; stroke-width: 2; }
+      .process     { fill: #3DA88C; stroke: #3DA88C; stroke-width: 2; }
+      .empty-state { fill: #161B22; stroke: #30363D; stroke-width: 2; stroke-dasharray: 9 8; }
+      .main-arrow  { fill: none; stroke: #C9D1D9; stroke-width: 2.4;
+                     stroke-linecap: round; stroke-linejoin: round;
+                     marker-end: url(#arrow-slate); }
+      /* The two overlap connectors are the focal point and are deliberately
+         opposite: dashed red for never-sum, solid green for do-sum. */
+      .never-sum   { fill: none; stroke: #D9705F; stroke-width: 3.4;
+                     stroke-dasharray: 12 9; stroke-linecap: round; }
+      .do-sum      { fill: none; stroke: #3DA88C; stroke-width: 3.4;
+                     stroke-linecap: round; marker-end: url(#arrow-teal); }
+      .dotted-link { fill: none; stroke: #30363D; stroke-width: 2;
+                     stroke-dasharray: 3 8; stroke-linecap: round; }
+      .node-label       { font-size: 18px; font-weight: 600; }
+      .node-label-small { font-size: 16px; font-weight: 600; }
+      .white-label      { fill: #FFFFFF; }
+      .connector-label  { font-size: 15px; font-weight: 700; }
+      .red-label        { fill: #D9705F; }
+      .green-label      { fill: #3DA88C; }
+      .muted-label      { fill: #8B949E; }
+    </style>
+    <marker id="arrow-slate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#C9D1D9"/>
+    </marker>
+    <marker id="arrow-teal" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#3DA88C"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0D1117"/>
+
+  <rect class="source" x="70" y="90" width="360" height="105" rx="17"/>
+  <text class="node-label" x="250" y="133" text-anchor="middle">
+    <tspan x="250" dy="0">MFN export — frozen,</tspan>
+    <tspan x="250" dy="25">lifetime only</tspan>
+  </text>
+
+  <rect class="source" x="70" y="315" width="360" height="105" rx="17"/>
+  <text class="node-label-small" x="250" y="357" text-anchor="middle">
+    <tspan x="250" dy="0">GA4 legacy property — daily,</tspan>
+    <tspan x="250" dy="24">Africa/Lagos</tspan>
+  </text>
+
+  <rect class="source" x="70" y="540" width="360" height="115" rx="17"/>
+  <text class="node-label-small" x="250" y="580" text-anchor="middle">
+    <tspan x="250" dy="0">GA4 apex property — daily,</tspan>
+    <tspan x="250" dy="24">Los Angeles timezone</tspan>
+  </text>
+
+  <path class="never-sum" d="M 250 195 L 250 315"/>
+  <rect x="282" y="225" width="315" height="55" rx="8" fill="#0D1117"/>
+  <text class="connector-label red-label" x="298" y="246">
+    <tspan x="298" dy="0">overlap: NEVER sum —</tspan>
+    <tspan x="298" dy="21">two tools, same traffic</tspan>
+  </text>
+
+  <path class="do-sum" d="M 250 420 L 250 540"/>
+  <rect x="282" y="450" width="315" height="55" rx="8" fill="#0D1117"/>
+  <text class="connector-label green-label" x="298" y="471">
+    <tspan x="298" dy="0">overlap: DO sum —</tspan>
+    <tspan x="298" dy="21">two sites, different traffic</tspan>
+  </text>
+
+  <path class="main-arrow" d="M 430 597.5 L 590 597.5"/>
+
+  <rect class="process" x="590" y="545" width="285" height="105" rx="17"/>
+  <text class="node-label white-label" x="732.5" y="588" text-anchor="middle">
+    <tspan x="732.5" dy="0">Rebucket to</tspan>
+    <tspan x="732.5" dy="26">Nigeria days</tspan>
+  </text>
+
+  <rect class="process" x="1160" y="285" width="360" height="190" rx="20"/>
+  <text class="node-label white-label" x="1340" y="369" text-anchor="middle">
+    <tspan x="1340" dy="0">One article-level</tspan>
+    <tspan x="1340" dy="28">table</tspan>
+  </text>
+
+  <path class="main-arrow"
+        d="M 430 142.5 L 1010 142.5 Q 1050 142.5 1050 182.5 L 1050 335 L 1160 335"/>
+  <path class="main-arrow" d="M 430 367.5 L 1160 367.5"/>
+  <path class="main-arrow"
+        d="M 875 597.5 L 1035 597.5 Q 1075 597.5 1075 557.5 L 1075 420 L 1160 420"/>
+
+  <!-- Deliberately empty: the month between migration and the new property -->
+  <path class="dotted-link" d="M 1340 475 L 1340 620"/>
+  <rect class="empty-state" x="1090" y="620" width="500" height="125" rx="18"/>
+  <text class="node-label-small muted-label" x="1340" y="671" text-anchor="middle">
+    <tspan x="1340" dy="0">migration month — unmeasured,</tspan>
+    <tspan x="1340" dy="25">footnoted not filled</tspan>
+  </text>
+</svg>

@@ -9,24 +9,24 @@
 
   <defs>
     <style>
-      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
-      .group    { fill: none; stroke: #CBD5E1; stroke-width: 2; }
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #C9D1D9; }
+      .group    { fill: none; stroke: #30363D; stroke-width: 2; }
       .caps     { font-size: 15px; font-weight: 700; letter-spacing: 1px; }
       .label    { font-size: 16px; font-weight: 600; }
       .small    { font-size: 14px; font-weight: 600; }
       .white    { fill: #FFFFFF; }
-      .process  { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
-      .cyl-body { fill: #F1F5F9; stroke: none; }
-      .cyl-edge { fill: none; stroke: #CBD5E1; stroke-width: 2; stroke-linecap: round; }
-      .cyl-top  { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 2; }
-      .arrow    { fill: none; stroke: #334155; stroke-width: 2.2;
+      .process  { fill: #3DA88C; stroke: #3DA88C; stroke-width: 2; }
+      .cyl-body { fill: #161B22; stroke: none; }
+      .cyl-edge { fill: none; stroke: #30363D; stroke-width: 2; stroke-linecap: round; }
+      .cyl-top  { fill: #161B22; stroke: #30363D; stroke-width: 2; }
+      .arrow    { fill: none; stroke: #C9D1D9; stroke-width: 2.2;
                   stroke-linecap: round; stroke-linejoin: round;
                   marker-end: url(#arrowSlate); }
     </style>
 
     <marker id="arrowSlate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
             orient="auto" markerUnits="strokeWidth">
-      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#334155"/>
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#C9D1D9"/>
     </marker>
 
     <!-- Cylinder: body rect with no top/bottom stroke, front arc, then full top ellipse.
@@ -40,7 +40,7 @@
     </g>
   </defs>
 
-  <rect width="1600" height="900" fill="#FFFFFF"/>
+  <rect width="1600" height="900" fill="#0D1117"/>
 
   <!-- Column containers -->
   <rect class="group" x="30"   y="40" width="320" height="820" rx="18"/>
