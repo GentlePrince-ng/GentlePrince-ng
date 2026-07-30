@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t3 d3">
+  <title id="t3">PHC Data Explorer: pipeline with supervised AI branch</title>
+  <desc id="d3">
+    A left-to-right pipeline from health data sources to a public explorer. An
+    optional managed LLM branch is drawn with dashed arrows and must pass human
+    review before any AI-drafted output reaches the public explorer.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
+      .process        { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
+      .data-store     { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 2; }
+      .decision       { fill: #D98A2B; stroke: #D98A2B; stroke-width: 2; }
+      .main-arrow     { fill: none; stroke: #334155; stroke-width: 2.4;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowSlate); }
+      .optional-arrow { fill: none; stroke: #334155; stroke-width: 2.2;
+                        stroke-dasharray: 9 8; stroke-linecap: round;
+                        stroke-linejoin: round; marker-end: url(#arrowSlate); }
+      .approved-arrow { fill: none; stroke: #2E8B74; stroke-width: 3;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowTeal); }
+      .rejected-arrow { fill: none; stroke: #B4483C; stroke-width: 2.6;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowRed); }
+      .node-label       { font-size: 17px; font-weight: 600; }
+      .node-label-small { font-size: 15px; font-weight: 600; }
+      .white-label      { fill: #FFFFFF; }
+      .arrow-label      { font-size: 14px; font-weight: 700; }
+      .approved-label   { fill: #2E8B74; }
+      .rejected-label   { fill: #B4483C; }
+      .optional-note    { font-size: 14px; font-weight: 600; fill: #64748B; }
+    </style>
+    <marker id="arrowSlate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#2E8B74"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#B4483C"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <!-- Source cylinder -->
+  <g transform="translate(55 255)">
+    <path class="data-store"
+          d="M 18 20 C 18 6, 55 0, 135 0 C 215 0, 252 6, 252 20
+             L 252 145 C 252 159, 215 165, 135 165 C 55 165, 18 159, 18 145 Z"/>
+    <ellipse cx="135" cy="20" rx="117" ry="20" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2"/>
+    <path d="M 18 145 C 18 159, 55 165, 135 165 C 215 165, 252 159, 252 145"
+          fill="none" stroke="#CBD5E1" stroke-width="2"/>
+    <text class="node-label-small" x="135" y="58" text-anchor="middle">
+      <tspan x="135" dy="0">NHW surveys, MSDAT,</tspan>
+      <tspan x="135" dy="22">NBS, NPHCDA facilities,</tspan>
+      <tspan x="135" dy="22">geocoded news</tspan>
+    </text>
+  </g>
+
+  <!-- Main pipeline -->
+  <rect class="process" x="355" y="270" width="255" height="135" rx="17"/>
+  <text class="node-label-small white-label" x="482.5" y="316" text-anchor="middle">
+    <tspan x="482.5" dy="0">Puller and pre-processor:</tspan>
+    <tspan x="482.5" dy="24">align to standard</tspan>
+    <tspan x="482.5" dy="24">geographies</tspan>
+  </text>
+
+  <rect class="process" x="680" y="270" width="235" height="135" rx="17"/>
+  <text class="node-label white-label" x="797.5" y="324" text-anchor="middle">
+    <tspan x="797.5" dy="0">Analytics layer:</tspan>
+    <tspan x="797.5" dy="25">Cube.dev indicator</tspan>
+    <tspan x="797.5" dy="25">cubes</tspan>
+  </text>
+
+  <rect class="process" x="985" y="270" width="235" height="135" rx="17"/>
+  <text class="node-label white-label" x="1102.5" y="324" text-anchor="middle">
+    <tspan x="1102.5" dy="0">Wazimap API and</tspan>
+    <tspan x="1102.5" dy="25">extended frontend</tspan>
+  </text>
+
+  <rect class="process" x="1290" y="255" width="255" height="165" rx="17"/>
+  <text class="node-label-small white-label" x="1417.5" y="308" text-anchor="middle">
+    <tspan x="1417.5" dy="0">Public explorer:</tspan>
+    <tspan x="1417.5" dy="23">national to state</tspan>
+    <tspan x="1417.5" dy="23">to LGA to facility</tspan>
+  </text>
+
+  <path class="main-arrow" d="M 307 337.5 L 355 337.5"/>
+  <path class="main-arrow" d="M 610 337.5 L 680 337.5"/>
+  <path class="main-arrow" d="M 915 337.5 L 985 337.5"/>
+  <path class="main-arrow" d="M 1220 337.5 L 1290 337.5"/>
+
+  <!-- Optional, supervised AI branch -->
+  <text class="optional-note" x="483" y="490" text-anchor="middle">Optional, supervised AI branch</text>
+
+  <path class="optional-arrow" d="M 482.5 405 L 482.5 545"/>
+
+  <rect class="process" x="355" y="545" width="255" height="105" rx="17"/>
+  <text class="node-label white-label" x="482.5" y="606" text-anchor="middle">Managed LLM</text>
+
+  <path class="optional-arrow" d="M 610 597.5 L 730 597.5"/>
+
+  <polygon class="decision" points="835,510 940,597.5 835,685 730,597.5"/>
+  <text class="node-label white-label" x="835" y="591" text-anchor="middle">
+    <tspan x="835" dy="0">Human</tspan>
+    <tspan x="835" dy="24">review</tspan>
+  </text>
+
+  <!-- Approved: leaves the diamond's upper-right edge, so it visibly touches it -->
+  <path class="approved-arrow" d="M 888 554 L 1040 465 L 1417.5 465 L 1417.5 420"/>
+  <rect x="1065" y="445" width="86" height="24" rx="6" fill="#FFFFFF"/>
+  <text class="arrow-label approved-label" x="1108" y="462" text-anchor="middle">approved</text>
+
+  <!-- Rejected: loops back to the model, never reaching the public output -->
+  <path class="rejected-arrow" d="M 835 685 L 835 760 L 482.5 760 L 482.5 650"/>
+  <rect x="620" y="742" width="78" height="24" rx="6" fill="#FFFFFF"/>
+  <text class="arrow-label rejected-label" x="659" y="759" text-anchor="middle">rejected</text>
+</svg>

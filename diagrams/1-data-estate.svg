@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t1 d1">
+  <title id="t1">Data estate: sources, ingest, model, serve</title>
+  <desc id="d1">
+    Four columns left to right. Field and platform sources feed two ingest layers,
+    which feed a quality engine, a DuckDB warehouse and a geographic spine, which
+    in turn serve dashboards, a public map explorer and a daily brief email.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
+      .group    { fill: none; stroke: #CBD5E1; stroke-width: 2; }
+      .caps     { font-size: 15px; font-weight: 700; letter-spacing: 1px; }
+      .label    { font-size: 16px; font-weight: 600; }
+      .small    { font-size: 14px; font-weight: 600; }
+      .white    { fill: #FFFFFF; }
+      .process  { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
+      .cyl-body { fill: #F1F5F9; stroke: none; }
+      .cyl-edge { fill: none; stroke: #CBD5E1; stroke-width: 2; stroke-linecap: round; }
+      .cyl-top  { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 2; }
+      .arrow    { fill: none; stroke: #334155; stroke-width: 2.2;
+                  stroke-linecap: round; stroke-linejoin: round;
+                  marker-end: url(#arrowSlate); }
+    </style>
+
+    <marker id="arrowSlate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#334155"/>
+    </marker>
+
+    <!-- Cylinder: body rect with no top/bottom stroke, front arc, then full top ellipse.
+         Drawing in this order is what hides the seam lines a plain rect leaves behind. -->
+    <g id="cyl">
+      <rect class="cyl-body" x="20" y="0" width="180" height="70"/>
+      <path class="cyl-edge" d="M 20 0 L 20 70"/>
+      <path class="cyl-edge" d="M 200 0 L 200 70"/>
+      <path class="cyl-edge" d="M 20 70 A 90 16 0 0 0 200 70"/>
+      <ellipse class="cyl-top" cx="110" cy="0" rx="90" ry="16"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <!-- Column containers -->
+  <rect class="group" x="30"   y="40" width="320" height="820" rx="18"/>
+  <rect class="group" x="420"  y="40" width="320" height="820" rx="18"/>
+  <rect class="group" x="810"  y="40" width="320" height="820" rx="18"/>
+  <rect class="group" x="1200" y="40" width="370" height="820" rx="18"/>
+
+  <text class="caps" x="60"   y="72">SOURCES</text>
+  <text class="caps" x="450"  y="72">INGEST AND RECONCILE</text>
+  <text class="caps" x="840"  y="72">MODEL</text>
+  <text class="caps" x="1230" y="72">SERVE</text>
+
+  <!-- SOURCES — ordered so no arrow has to cross another -->
+  <g transform="translate(70,125)">
+    <use href="#cyl"/>
+    <text class="label" text-anchor="middle" x="110" y="42">KoboToolbox</text>
+    <text class="small" text-anchor="middle" x="110" y="62">field surveys</text>
+  </g>
+
+  <g transform="translate(70,305)">
+    <use href="#cyl"/>
+    <text class="label" text-anchor="middle" x="110" y="42">Slack mentions</text>
+  </g>
+
+  <g transform="translate(70,485)">
+    <use href="#cyl"/>
+    <text class="small" text-anchor="middle" x="110" y="28">GA4 / Mailchimp /</text>
+    <text class="small" text-anchor="middle" x="110" y="48">YouTube / WordPress</text>
+  </g>
+
+  <g transform="translate(70,675)">
+    <use href="#cyl"/>
+    <text class="small" text-anchor="middle" x="110" y="28">MSDAT / NBS /</text>
+    <text class="small" text-anchor="middle" x="110" y="48">NPHCDA facilities</text>
+  </g>
+
+  <!-- INGEST -->
+  <rect class="process" x="470" y="160" width="220" height="90" rx="14"/>
+  <text class="small white" text-anchor="middle" x="580" y="198">Apps Script,</text>
+  <text class="small white" text-anchor="middle" x="580" y="222">append-only, 15 min</text>
+
+  <rect class="process" x="470" y="475" width="220" height="90" rx="14"/>
+  <text class="small white" text-anchor="middle" x="580" y="513">Python ETL,</text>
+  <text class="small white" text-anchor="middle" x="580" y="537">parquet, daily on CI</text>
+
+  <rect class="process" x="470" y="665" width="220" height="90" rx="14"/>
+  <text class="small white" text-anchor="middle" x="580" y="703">Puller and</text>
+  <text class="small white" text-anchor="middle" x="580" y="727">pre-processor</text>
+
+  <!-- MODEL -->
+  <rect class="process" x="860" y="150" width="220" height="110" rx="14"/>
+  <text class="small white" text-anchor="middle" x="970" y="193">16-rule quality engine,</text>
+  <text class="small white" text-anchor="middle" x="970" y="217">flags never deletes</text>
+
+  <rect class="process" x="860" y="475" width="220" height="90" rx="14"/>
+  <text class="small white" text-anchor="middle" x="970" y="513">DuckDB</text>
+  <text class="small white" text-anchor="middle" x="970" y="537">article-level table</text>
+
+  <rect class="process" x="860" y="655" width="220" height="110" rx="14"/>
+  <text class="small white" text-anchor="middle" x="970" y="698">Geographic spine:</text>
+  <text class="small white" text-anchor="middle" x="970" y="722">state to LGA</text>
+  <text class="small white" text-anchor="middle" x="970" y="746">to facility</text>
+
+  <!-- SERVE -->
+  <rect class="process" x="1260" y="165" width="240" height="80" rx="14"/>
+  <text class="small white" text-anchor="middle" x="1380" y="211">Looker Studio / Power BI</text>
+
+  <rect class="process" x="1260" y="480" width="240" height="80" rx="14"/>
+  <text class="small white" text-anchor="middle" x="1380" y="526">Streamlit dashboards</text>
+
+  <rect class="process" x="1260" y="660" width="240" height="80" rx="14"/>
+  <text class="small white" text-anchor="middle" x="1380" y="706">Public map explorer</text>
+
+  <rect class="process" x="1260" y="790" width="240" height="70" rx="14"/>
+  <text class="small white" text-anchor="middle" x="1380" y="831">Daily brief email</text>
+
+  <!-- SOURCES -> INGEST (anchored at each cylinder's vertical mid-point) -->
+  <path class="arrow" d="M 270 160 L 470 195"/>
+  <path class="arrow" d="M 270 340 L 470 225"/>
+  <path class="arrow" d="M 270 520 L 470 520"/>
+  <path class="arrow" d="M 270 710 L 470 710"/>
+
+  <!-- INGEST -> MODEL -->
+  <path class="arrow" d="M 690 195 L 860 195"/>
+  <path class="arrow" d="M 690 235 L 780 235 L 780 690 L 860 690"/>
+  <path class="arrow" d="M 690 520 L 860 520"/>
+  <path class="arrow" d="M 690 720 L 860 720"/>
+
+  <!-- MODEL -> SERVE -->
+  <path class="arrow" d="M 1080 205 L 1260 205"/>
+  <path class="arrow" d="M 1080 520 L 1260 520"/>
+  <path class="arrow" d="M 1080 710 L 1260 700"/>
+
+  <!-- Apps Script also drives the daily brief directly, routed along the bottom -->
+  <path class="arrow" d="M 580 250 L 580 825 L 1260 825"/>
+</svg>

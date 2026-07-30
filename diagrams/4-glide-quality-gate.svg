@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t4 d4">
+  <title id="t4">GLIDE: survey data quality and validation gate</title>
+  <desc id="d4">
+    A top-to-bottom workflow: append-only KoboToolbox ingestion, a sixteen-rule
+    quality engine across four rule groups, flagged rows, human validation, and
+    two equally weighted destinations — analysis-ready and held back.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
+      .process        { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
+      .process-light  { fill: #FFFFFF; stroke: #2E8B74; stroke-width: 2; }
+      .store          { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 2; }
+      .decision       { fill: #D98A2B; stroke: #D98A2B; stroke-width: 2; }
+      /* Held back is a real destination, so it gets a solid fill of equal weight
+         to Analysis-ready — neutral slate, not red: it is pending, not rejected. */
+      .held           { fill: #64748B; stroke: #64748B; stroke-width: 2; }
+      .arrow          { fill: none; stroke: #334155; stroke-width: 2.3;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowSlate); }
+      .approved-arrow { fill: none; stroke: #2E8B74; stroke-width: 2.8;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowTeal); }
+      .held-arrow     { fill: none; stroke: #64748B; stroke-width: 2.8;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowSlateMuted); }
+      .node-label       { font-size: 18px; font-weight: 600; }
+      .node-label-small { font-size: 15px; font-weight: 600; }
+      .white-label      { fill: #FFFFFF; }
+      .arrow-label      { font-size: 14px; font-weight: 700; }
+      .approved-label   { fill: #2E8B74; }
+      .held-label       { fill: #64748B; }
+    </style>
+    <marker id="arrowSlate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#2E8B74"/>
+    </marker>
+    <marker id="arrowSlateMuted" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#64748B"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <rect class="process" x="650" y="50" width="300" height="72" rx="16"/>
+  <text class="node-label white-label" x="800" y="94" text-anchor="middle">KoboToolbox</text>
+
+  <path class="arrow" d="M 800 122 L 800 180"/>
+  <rect x="715" y="139" width="170" height="24" rx="6" fill="#FFFFFF"/>
+  <text class="arrow-label" x="800" y="156" text-anchor="middle">append-only on _id</text>
+
+  <!-- Landing table -->
+  <g transform="translate(625 180)">
+    <path class="store"
+          d="M 20 22 C 20 8, 65 0, 175 0 C 285 0, 330 8, 330 22
+             L 330 96 C 330 110, 285 118, 175 118 C 65 118, 20 110, 20 96 Z"/>
+    <ellipse cx="175" cy="22" rx="155" ry="22" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="2"/>
+    <path d="M 20 96 C 20 110, 65 118, 175 118 C 285 118, 330 110, 330 96"
+          fill="none" stroke="#CBD5E1" stroke-width="2"/>
+    <text class="node-label" x="175" y="63" text-anchor="middle">
+      <tspan x="175" dy="0">Landing table —</tspan>
+      <tspan x="175" dy="24">never rewritten</tspan>
+    </text>
+  </g>
+
+  <path class="arrow" d="M 800 298 L 800 330"/>
+
+  <polygon class="decision" points="800,330 925,405 800,480 675,405"/>
+  <text class="node-label white-label" x="800" y="399" text-anchor="middle">
+    <tspan x="800" dy="0">16-rule</tspan>
+    <tspan x="800" dy="24">engine</tspan>
+  </text>
+
+  <path class="arrow" d="M 720 432 L 720 500 L 215 500 L 215 535"/>
+  <path class="arrow" d="M 763 458 L 763 500 L 595 500 L 595 535"/>
+  <path class="arrow" d="M 837 458 L 837 500 L 975 500 L 975 535"/>
+  <path class="arrow" d="M 880 432 L 880 500 L 1355 500 L 1355 535"/>
+
+  <rect class="process-light" x="80" y="535" width="270" height="92" rx="15"/>
+  <text class="node-label-small" x="215" y="573" text-anchor="middle">
+    <tspan x="215" dy="0">Eligibility:</tspan>
+    <tspan x="215" dy="22">consent, residence</tspan>
+  </text>
+
+  <rect class="process-light" x="460" y="535" width="270" height="92" rx="15"/>
+  <text class="node-label-small" x="595" y="573" text-anchor="middle">
+    <tspan x="595" dy="0">Deployment:</tspan>
+    <tspan x="595" dy="22">state, LGA, name</tspan>
+  </text>
+
+  <rect class="process-light" x="840" y="535" width="270" height="92" rx="15"/>
+  <text class="node-label-small" x="975" y="573" text-anchor="middle">
+    <tspan x="975" dy="0">Timing:</tspan>
+    <tspan x="975" dy="22">duration, hours, delay</tspan>
+  </text>
+
+  <rect class="process-light" x="1220" y="535" width="270" height="92" rx="15"/>
+  <text class="node-label-small" x="1355" y="563" text-anchor="middle">
+    <tspan x="1355" dy="0">Geospatial:</tspan>
+    <tspan x="1355" dy="21">accuracy, duplicates,</tspan>
+    <tspan x="1355" dy="21">missing</tspan>
+  </text>
+
+  <path class="arrow" d="M 215 627 L 215 655 L 800 655 L 800 678"/>
+  <path class="arrow" d="M 595 627 L 595 655 L 800 655 L 800 678"/>
+  <path class="arrow" d="M 975 627 L 975 655 L 800 655 L 800 678"/>
+  <path class="arrow" d="M 1355 627 L 1355 655 L 800 655 L 800 678"/>
+
+  <rect class="process" x="430" y="678" width="740" height="68" rx="16"/>
+  <text class="node-label white-label" x="800" y="720" text-anchor="middle">
+    Flagged rows — nothing deleted
+  </text>
+
+  <path class="arrow" d="M 800 746 L 800 755"/>
+
+  <polygon class="decision" points="800,755 910,805 800,855 690,805"/>
+  <text class="node-label-small white-label" x="800" y="799" text-anchor="middle">
+    <tspan x="800" dy="0">Human sets</tspan>
+    <tspan x="800" dy="22">Validation = Yes?</tspan>
+  </text>
+
+  <path class="approved-arrow" d="M 690 805 L 560 805 L 560 830 L 430 830"/>
+  <rect x="540" y="783" width="48" height="22" rx="5" fill="#FFFFFF"/>
+  <text class="arrow-label approved-label" x="564" y="799" text-anchor="middle">yes</text>
+
+  <path class="held-arrow" d="M 910 805 L 1040 805 L 1040 830 L 1170 830"/>
+  <rect x="1002" y="783" width="86" height="22" rx="5" fill="#FFFFFF"/>
+  <text class="arrow-label held-label" x="1045" y="799" text-anchor="middle">no or blank</text>
+
+  <rect class="process" x="170" y="805" width="260" height="70" rx="16"/>
+  <text class="node-label white-label" x="300" y="848" text-anchor="middle">Analysis-ready</text>
+
+  <rect class="held" x="1170" y="805" width="260" height="70" rx="16"/>
+  <text class="node-label-small white-label" x="1300" y="837" text-anchor="middle">
+    <tspan x="1300" dy="0">Held back —</tspan>
+    <tspan x="1300" dy="22">still visible</tspan>
+  </text>
+</svg>

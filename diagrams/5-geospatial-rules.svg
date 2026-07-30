@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t5 d5">
+  <title id="t5">Geospatial quality checks on Kobo geopoints</title>
+  <desc id="d5">
+    Kobo geopoints are defensively parsed, then checked three ways: accuracy worse
+    than 20 metres, missing coordinates, and — after snapping to a roughly 11 metre
+    grid — more than one submission landing in the same cell.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
+      .process        { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
+      .process-light  { fill: #FFFFFF; stroke: #2E8B74; stroke-width: 2; }
+      .decision       { fill: #D98A2B; stroke: #D98A2B; stroke-width: 2; }
+      .flagged        { fill: #B4483C; stroke: #B4483C; stroke-width: 2; }
+      .arrow          { fill: none; stroke: #334155; stroke-width: 2.3;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowSlate); }
+      .rejected-arrow { fill: none; stroke: #B4483C; stroke-width: 2.6;
+                        stroke-linecap: round; stroke-linejoin: round;
+                        marker-end: url(#arrowRed); }
+      .node-label-small { font-size: 15px; font-weight: 600; }
+      .white-label      { fill: #FFFFFF; }
+      .arrow-label      { font-size: 14px; font-weight: 700; }
+      .rejected-label   { fill: #B4483C; }
+      .inset-note       { font-size: 13px; font-weight: 600; fill: #64748B; }
+      .grid-cell        { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 1.3; }
+      .highlight-cell   { fill: #DDEEE9; stroke: #2E8B74; stroke-width: 2; }
+      .grid-dot         { fill: #334155; }
+    </style>
+    <marker id="arrowSlate" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="11" markerHeight="11" refX="10" refY="5.5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 11 5.5 L 0 11 Z" fill="#B4483C"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <rect class="process" x="55" y="355" width="255" height="115" rx="17"/>
+  <text class="node-label-small white-label" x="182.5" y="397" text-anchor="middle">
+    <tspan x="182.5" dy="0">Kobo geopoint:</tspan>
+    <tspan x="182.5" dy="23">lat lon alt accuracy</tspan>
+  </text>
+
+  <path class="arrow" d="M 310 412.5 L 370 412.5"/>
+
+  <rect class="process" x="370" y="355" width="270" height="115" rx="17"/>
+  <text class="node-label-small white-label" x="505" y="397" text-anchor="middle">
+    <tspan x="505" dy="0">Defensive parse —</tspan>
+    <tspan x="505" dy="23">missing stays null</tspan>
+  </text>
+
+  <path class="arrow" d="M 640 385 L 700 385 L 700 205 L 755 205"/>
+  <path class="arrow" d="M 640 412.5 L 755 412.5"/>
+  <path class="arrow" d="M 640 440 L 700 440 L 700 630 L 755 630"/>
+
+  <polygon class="decision" points="875,115 995,205 875,295 755,205"/>
+  <text class="node-label-small white-label" x="875" y="199" text-anchor="middle">
+    <tspan x="875" dy="0">accuracy over</tspan>
+    <tspan x="875" dy="22">20 m?</tspan>
+  </text>
+
+  <polygon class="decision" points="875,322.5 995,412.5 875,502.5 755,412.5"/>
+  <text class="node-label-small white-label" x="875" y="406" text-anchor="middle">
+    <tspan x="875" dy="0">lat or lon</tspan>
+    <tspan x="875" dy="22">null?</tspan>
+  </text>
+
+  <rect class="process-light" x="755" y="575" width="240" height="110" rx="17"/>
+  <text class="node-label-small" x="875" y="613" text-anchor="middle">
+    <tspan x="875" dy="0">Snap to grid —</tspan>
+    <tspan x="875" dy="22">4 decimal places,</tspan>
+    <tspan x="875" dy="22">about 11 m</tspan>
+  </text>
+
+  <path class="arrow" d="M 995 630 L 1055 630"/>
+
+  <polygon class="decision" points="1170,545 1285,630 1170,715 1055,630"/>
+  <text class="node-label-small white-label" x="1170" y="624" text-anchor="middle">
+    <tspan x="1170" dy="0">cell holds</tspan>
+    <tspan x="1170" dy="22">2 or more?</tspan>
+  </text>
+
+  <path class="rejected-arrow" d="M 995 205 L 1080 205"/>
+  <rect x="1012" y="181" width="48" height="22" rx="5" fill="#FFFFFF"/>
+  <text class="arrow-label rejected-label" x="1036" y="197" text-anchor="middle">yes</text>
+
+  <rect class="flagged" x="1080" y="145" width="295" height="120" rx="17"/>
+  <text class="node-label-small white-label" x="1227.5" y="192" text-anchor="middle">
+    <tspan x="1227.5" dy="0">too coarse to place</tspan>
+    <tspan x="1227.5" dy="23">a household</tspan>
+  </text>
+
+  <path class="rejected-arrow" d="M 995 412.5 L 1080 412.5"/>
+  <rect x="1012" y="388" width="48" height="22" rx="5" fill="#FFFFFF"/>
+  <text class="arrow-label rejected-label" x="1036" y="404" text-anchor="middle">yes</text>
+
+  <rect class="flagged" x="1080" y="352.5" width="295" height="120" rx="17"/>
+  <text class="node-label-small white-label" x="1227.5" y="418" text-anchor="middle">no fix obtained</text>
+
+  <path class="rejected-arrow" d="M 1285 630 L 1350 630"/>
+  <rect x="1295" y="606" width="48" height="22" rx="5" fill="#FFFFFF"/>
+  <text class="arrow-label rejected-label" x="1319" y="622" text-anchor="middle">yes</text>
+
+  <rect class="flagged" x="1350" y="570" width="210" height="120" rx="17"/>
+  <text class="node-label-small white-label" x="1455" y="617" text-anchor="middle">
+    <tspan x="1455" dy="0">several forms,</tspan>
+    <tspan x="1455" dy="23">one location</tspan>
+  </text>
+
+  <!-- Schematic inset: three jittered readings snapping into one cell -->
+  <g transform="translate(90 650)">
+    <rect x="0" y="0" width="300" height="195" rx="14"
+          fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+
+    <rect class="grid-cell" x="30"  y="22"  width="48" height="42"/>
+    <rect class="grid-cell" x="78"  y="22"  width="48" height="42"/>
+    <rect class="grid-cell" x="126" y="22"  width="48" height="42"/>
+    <rect class="grid-cell" x="174" y="22"  width="48" height="42"/>
+    <rect class="grid-cell" x="222" y="22"  width="48" height="42"/>
+
+    <rect class="grid-cell" x="30"  y="64"  width="48" height="42"/>
+    <rect class="grid-cell" x="78"  y="64"  width="48" height="42"/>
+    <rect class="highlight-cell" x="126" y="64" width="48" height="42"/>
+    <rect class="grid-cell" x="174" y="64"  width="48" height="42"/>
+    <rect class="grid-cell" x="222" y="64"  width="48" height="42"/>
+
+    <rect class="grid-cell" x="30"  y="106" width="48" height="42"/>
+    <rect class="grid-cell" x="78"  y="106" width="48" height="42"/>
+    <rect class="grid-cell" x="126" y="106" width="48" height="42"/>
+    <rect class="grid-cell" x="174" y="106" width="48" height="42"/>
+    <rect class="grid-cell" x="222" y="106" width="48" height="42"/>
+
+    <circle class="grid-dot" cx="141" cy="79" r="5"/>
+    <circle class="grid-dot" cx="157" cy="87" r="5"/>
+    <circle class="grid-dot" cx="148" cy="97" r="5"/>
+
+    <text class="inset-note" x="150" y="175" text-anchor="middle">
+      three readings, one cell
+    </text>
+  </g>
+</svg>

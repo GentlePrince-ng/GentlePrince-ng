@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"
+     role="img" aria-labelledby="t2 d2">
+  <title id="t2">ICL: design, instruments, field QA and outputs</title>
+  <desc id="d2">
+    A top-to-bottom diagram showing a research design fixed before collection,
+    constraining the instruments, field quality assurance, analysis, and four outputs.
+  </desc>
+
+  <defs>
+    <style>
+      text { font-family: Inter, Helvetica, Arial, sans-serif; fill: #334155; }
+      .container        { fill: #FFFFFF; stroke: #CBD5E1; stroke-width: 2; }
+      .design-container { fill: #F8FAFC; stroke: #94A3B8; stroke-width: 3; }
+      .process          { fill: #2E8B74; stroke: #2E8B74; stroke-width: 2; }
+      .process-light    { fill: #FFFFFF; stroke: #2E8B74; stroke-width: 2; }
+      .data-store       { fill: #F1F5F9; stroke: #CBD5E1; stroke-width: 2; }
+      .connector        { fill: none; stroke: #334155; stroke-width: 2.2;
+                          stroke-linecap: round; stroke-linejoin: round;
+                          marker-end: url(#arrowhead); }
+      .constraint-line  { fill: none; stroke: #334155; stroke-width: 3;
+                          stroke-linecap: round; stroke-linejoin: round;
+                          marker-end: url(#arrowhead); }
+      .group-label      { font-size: 17px; font-weight: 700; letter-spacing: .4px; }
+      .node-label       { font-size: 17px; font-weight: 600; }
+      .node-label-small { font-size: 15px; font-weight: 600; }
+      .white-label      { fill: #FFFFFF; }
+      .annotation       { font-size: 14px; font-weight: 600; fill: #334155; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <!-- Tier 1 — the design, fixed before any data is collected -->
+  <rect class="design-container" x="90" y="55" width="1420" height="190" rx="20"/>
+  <text class="group-label" x="125" y="92">Design — fixed before collection</text>
+  <text class="annotation" x="1475" y="92" text-anchor="end">Constrains all downstream stages</text>
+
+  <rect class="process" x="135" y="120" width="390" height="88" rx="15"/>
+  <text class="node-label white-label" x="330" y="157" text-anchor="middle">
+    <tspan x="330" dy="0">6 LGAs per state:</tspan>
+    <tspan x="330" dy="24">3 rural, 3 urban</tspan>
+  </text>
+
+  <rect class="process" x="605" y="120" width="390" height="88" rx="15"/>
+  <text class="node-label white-label" x="800" y="157" text-anchor="middle">
+    <tspan x="800" dy="0">2 LGAs per</tspan>
+    <tspan x="800" dy="24">senatorial district</tspan>
+  </text>
+
+  <rect class="process" x="1075" y="120" width="390" height="88" rx="15"/>
+  <text class="node-label-small white-label" x="1270" y="150" text-anchor="middle">
+    <tspan x="1270" dy="0">Cochran + design effect,</tspan>
+    <tspan x="1270" dy="22">multi-stage cluster</tspan>
+  </text>
+
+  <path class="constraint-line" d="M 800 245 L 800 285"/>
+
+  <!-- Tier 2 — instruments -->
+  <rect class="container" x="90" y="285" width="1420" height="210" rx="20"/>
+  <text class="group-label" x="125" y="322">Instruments</text>
+
+  <rect class="process-light" x="130" y="350" width="400" height="105" rx="15"/>
+  <text class="node-label-small" x="330" y="391" text-anchor="middle">
+    <tspan x="330" dy="0">Household survey</tspan>
+    <tspan x="330" dy="23">(WHO PHC toolkit, SARA)</tspan>
+  </text>
+
+  <rect class="process-light" x="600" y="350" width="400" height="105" rx="15"/>
+  <text class="node-label" x="800" y="391" text-anchor="middle">
+    <tspan x="800" dy="0">FGDs:</tspan>
+    <tspan x="800" dy="24">youth, women, elderly</tspan>
+  </text>
+
+  <rect class="process-light" x="1070" y="350" width="400" height="105" rx="15"/>
+  <text class="node-label-small" x="1270" y="378" text-anchor="middle">
+    <tspan x="1270" dy="0">KIIs: PHC officers in charge,</tspan>
+    <tspan x="1270" dy="21">state officials, ward development</tspan>
+    <tspan x="1270" dy="21">committee chairs</tspan>
+  </text>
+
+  <path class="connector" d="M 330 455 L 330 525 L 800 525 L 800 550"/>
+  <path class="connector" d="M 800 455 L 800 550"/>
+  <path class="connector" d="M 1270 455 L 1270 525 L 800 525 L 800 550"/>
+
+  <!-- Tier 3 — field QA, analysis, outputs -->
+  <rect class="process" x="320" y="550" width="960" height="78" rx="16"/>
+  <text class="node-label white-label" x="800" y="597" text-anchor="middle">
+    Field QA — spot checks, daily debriefs, encrypted devices
+  </text>
+
+  <path class="connector" d="M 800 628 L 800 660"/>
+
+  <rect class="process" x="480" y="660" width="640" height="72" rx="16"/>
+  <text class="node-label white-label" x="800" y="705" text-anchor="middle">
+    Analysis at state and LGA level
+  </text>
+
+  <path class="connector" d="M 800 732 L 800 765 L 245 765 L 245 790"/>
+  <path class="connector" d="M 800 732 L 800 765 L 615 765 L 615 790"/>
+  <path class="connector" d="M 800 732 L 800 765 L 985 765 L 985 790"/>
+  <path class="connector" d="M 800 732 L 800 765 L 1355 765 L 1355 790"/>
+
+  <rect class="data-store" x="100" y="790" width="290" height="76" rx="14"/>
+  <text class="node-label-small" x="245" y="823" text-anchor="middle">
+    <tspan x="245" dy="0">Health Intelligence</tspan>
+    <tspan x="245" dy="22">Report</tspan>
+  </text>
+
+  <rect class="data-store" x="470" y="790" width="290" height="76" rx="14"/>
+  <text class="node-label-small" x="615" y="823" text-anchor="middle">
+    <tspan x="615" dy="0">Editorial and</tspan>
+    <tspan x="615" dy="22">thought leadership</tspan>
+  </text>
+
+  <rect class="data-store" x="840" y="790" width="290" height="76" rx="14"/>
+  <text class="node-label-small" x="985" y="815" text-anchor="middle">
+    <tspan x="985" dy="0">Conference abstracts</tspan>
+    <tspan x="985" dy="21">(ICPHC Addis Ababa)</tspan>
+  </text>
+
+  <rect class="data-store" x="1210" y="790" width="290" height="76" rx="14"/>
+  <text class="node-label-small" x="1355" y="823" text-anchor="middle">
+    <tspan x="1355" dy="0">State PHC board</tspan>
+    <tspan x="1355" dy="22">engagement</tspan>
+  </text>
+</svg>
