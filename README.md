@@ -13,6 +13,65 @@ Currently building the M&E stack at **Nigeria Health Watch**.
 
 ---
 
+## The data estate I build and run
+
+Five platforms, three pipelines, one question each team keeps asking: *is this
+number real?*
+
+```mermaid
+flowchart LR
+    subgraph SRC["Sources"]
+        direction TB
+        S1["GA4<br/>two properties"]
+        S2["Mailchimp"]
+        S3["YouTube"]
+        S4["BeyondWords"]
+        S5["WordPress<br/>registry"]
+        S6["KoboToolbox<br/>field survey"]
+        S7["Slack<br/>mentions"]
+    end
+
+    subgraph ETL["Ingest and reconcile"]
+        direction TB
+        E1["Python ETL<br/><i>parquet, daily on CI</i>"]
+        E2["Apps Script<br/><i>append-only, 15 min</i>"]
+    end
+
+    subgraph WH["Model"]
+        direction TB
+        W1["DuckDB<br/><i>article-level table</i>"]
+        W2["Quality engine<br/><i>16 rules, flags only</i>"]
+        W3["Gemini<br/><i>structured output</i>"]
+    end
+
+    subgraph OUT["Serve"]
+        direction TB
+        O1["Streamlit<br/>dashboards"]
+        O2["Looker Studio"]
+        O3["Daily brief<br/>email"]
+        O4["React + Supabase<br/>impact funnel"]
+    end
+
+    S1 & S2 & S3 & S4 & S5 --> E1
+    S6 --> E2
+    S7 --> E2
+
+    E1 --> W1
+    E2 --> W2
+    E2 --> W3
+
+    W1 --> O1
+    W2 --> O2
+    W3 --> O3
+    W1 --> O4
+```
+
+The recurring problem is never the extraction. It is that two sources disagree,
+a migration split one history in half, or a field team submitted something that
+looks plausible and is not. Most of what follows is about that.
+
+---
+
 ## Selected work
 
 ### Editorial & Digital Comms Metrics Pipeline
@@ -28,6 +87,30 @@ timezones, which GA4 will not re-bucket retroactively. The pipeline stitches the
 into one table under explicit overlap rules, because the two overlaps behave
 oppositely and getting them backwards silently doubles reported traffic. Where
 data genuinely doesn't exist, the pipeline says so rather than interpolating.
+
+```mermaid
+flowchart LR
+    M["MFN export<br/><i>frozen, lifetime only</i><br/>2022-02 to 2026-07"]
+    G1["GA4 legacy property<br/><i>daily, Africa/Lagos</i><br/>2023-07 to live"]
+    G2["GA4 apex property<br/><i>daily, Los Angeles tz</i><br/>2026-06 to live"]
+
+    M -.->|"overlap: NEVER sum<br/>two tools, same traffic"| G1
+    G1 -->|"overlap: DO sum<br/>two sites, different traffic"| G2
+
+    G2 --> RB["Rebucket to<br/>Nigeria days"]
+
+    M & G1 & RB --> T["One article-level table"]
+
+    GAP["2026-05-11 to 06-11<br/><b>unmeasured</b><br/><i>footnoted, not filled</i>"] -.-> T
+```
+
+The two overlaps behave **oppositely**, and getting them backwards silently
+doubles reported traffic. GA4 never re-buckets history, so a property left on
+the wrong timezone is pulled at hour grain and rebucketed in the pipeline — it
+cannot be fixed by changing a setting. And the month between the domain
+migration and the new property's creation is simply gone: roughly 40–50k
+pageviews that no longer exist anywhere. The pipeline footnotes it rather than
+interpolating.
 
 `Python` `DuckDB` `Streamlit` `GA4 Data API` `parquet` `GitHub Actions`
 
@@ -64,6 +147,41 @@ screen a human then reviews.
 The qualitative side generates its denominator from the study protocol rather
 than counting submissions, so progress is always a fraction of a known total
 and every submission is audited as matched, duplicate, unmatched or invalid.
+
+```mermaid
+flowchart TD
+    K["KoboToolbox"] -->|append-only on _id| RAW["Landing table<br/><i>never rewritten</i>"]
+
+    RAW --> ENG{"16-rule engine"}
+
+    ENG --> R1["Eligibility<br/>consent · residence"]
+    ENG --> R2["Deployment<br/>state · LGA · name"]
+    ENG --> R3["Timing<br/>duration · hours · delay"]
+    ENG --> R4["Geospatial<br/>accuracy · dupes · missing"]
+
+    R1 & R2 & R3 & R4 --> DQ["Flagged rows<br/><i>nothing deleted</i>"]
+
+    DQ --> GATE{"Human sets<br/>Validation = Yes?"}
+    GATE -->|yes| CLEAN["Analysis-ready"]
+    GATE -->|"no or blank"| HELD["Held back<br/><i>still visible</i>"]
+```
+
+The geospatial rules, which are the part that catches what nothing else does:
+
+```mermaid
+flowchart LR
+    G["Kobo geopoint<br/>lat lon alt accuracy"] --> P["Defensive parse<br/><i>missing stays null</i>"]
+
+    P --> A{"accuracy<br/>over 20 m?"}
+    P --> M{"lat or lon<br/>null?"}
+    P --> S["Snap to grid<br/>4 dp ≈ 11 m"]
+
+    S --> C{"cell holds<br/>2 or more?"}
+
+    A -->|yes| F1["too coarse<br/>to place a household"]
+    M -->|yes| F2["no fix obtained"]
+    C -->|yes| F3["several forms,<br/>one location"]
+```
 
 `Apps Script` `KoboToolbox API` `geospatial QA` `Google Sheets/Drive/Forms` `Looker Studio`
 
