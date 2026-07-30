@@ -134,6 +134,10 @@ also aren't stable across states, so column lookup is by regex with an `NA`
 fallback — a state missing one indicator drops that series rather than killing
 the batch run.
 
+Those parsing rules are extracted and generalised as a public R package —
+**[tidyindicator](https://github.com/GentlePrince-ng/tidyindicator)**, with 21
+tests and no dependencies beyond base R.
+
 **The Dedoose arm** — **39 key informant transcripts** coded against a structured
 codebook and cross-tabulated by stakeholder category: NMEP programme staff,
 technical support partners, SMEP managers, Directors of Public Health, and state
